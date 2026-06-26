@@ -5,9 +5,13 @@ const clientId = process.env.NEXT_PUBLIC_AZURE_CLIENT_ID ?? "";
 const authority =
   process.env.NEXT_PUBLIC_AUTHORITY ??
   "https://login.microsoftonline.com/common";
+// Always use the current page's origin in the browser, so the same build works
+// on localhost and in production without changing env vars. The env var is only
+// a fallback for non-browser contexts (SSR build).
 const redirectUri =
-  process.env.NEXT_PUBLIC_AZURE_REDIRECT_URI ??
-  (typeof window !== "undefined" ? window.location.origin : "http://localhost:3000");
+  typeof window !== "undefined"
+    ? window.location.origin
+    : process.env.NEXT_PUBLIC_AZURE_REDIRECT_URI ?? "http://localhost:3000";
 
 export const API_SCOPE =
   process.env.NEXT_PUBLIC_AZURE_BACKEND_SCOPE ?? `${clientId}/.default`;
