@@ -46,7 +46,8 @@ export default function LeadsPage() {
 
   const filtered = useMemo(() => {
     const q = filters.search.trim().toLowerCase();
-    return leads.filter((l) => {
+    const sorted = [...leads].sort((a, b) => b.inquiry_id - a.inquiry_id);
+    return sorted.filter((l) => {
       if (filters.priority && l.lead_priority !== filters.priority) return false;
       if (filters.callStatus && l.call_status !== filters.callStatus) return false;
       if (filters.leadStatus && l.lead_status !== filters.leadStatus) return false;
