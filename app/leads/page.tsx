@@ -50,6 +50,9 @@ export default function LeadsPage() {
       if (filters.priority && l.lead_priority !== filters.priority) return false;
       if (filters.callStatus && l.call_status !== filters.callStatus) return false;
       if (filters.leadStatus && l.lead_status !== filters.leadStatus) return false;
+      if (filters.leadPerson && l.lead_person !== filters.leadPerson) return false;
+      if (filters.followUpDate && (l.follow_up_date ?? "").slice(0, 10) !== filters.followUpDate)
+        return false;
       if (q) {
         const hay = [
           l.customer_name,

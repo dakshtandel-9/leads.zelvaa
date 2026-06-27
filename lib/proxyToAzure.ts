@@ -61,5 +61,25 @@ export async function proxyToAzure(
     }
   }
 
+  // On an error status, never pass a bare null/empty body through — synthesize
+  // a message so the UI shows something actionable instead of "null".
+  if (!upstream.ok) {
+    const hasMessage =
+      data && typeof data === "object" && "message" in (data as object);
+    if (!hasMessage) {
+      return NextResponse.json(
+        {
+          status: 0,
+          message:
+            typeof data === "string" && data
+              ? data
+              : `Upstream API returned ${upstream.status} ${upstream.statusText} with no body.`,
+          upstreamStatus: upstream.status,
+        },
+        { status: upstream.status }
+      );
+    }
+  }
+
   return NextResponse.json(data, { status: upstream.status });
 }

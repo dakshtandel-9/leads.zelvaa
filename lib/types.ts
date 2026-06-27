@@ -86,3 +86,10 @@ export const LEAD_STATUS_OPTIONS: LeadStatus[] = [
 ];
 
 export const YES_NO_OPTIONS: YesNo[] = ["Yes", "No"];
+
+export const LEAD_PERSON_OPTIONS: string[] = [
+  "Daksh",
+  "Aryan",
+  "Abhishek",
+  "Nihar",
+];

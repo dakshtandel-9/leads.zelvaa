@@ -3,6 +3,7 @@
 import { useState } from "react";
 import {
   CALL_STATUS_OPTIONS,
+  LEAD_PERSON_OPTIONS,
   LEAD_PRIORITY_OPTIONS,
   LEAD_STATUS_OPTIONS,
   YES_NO_OPTIONS,
@@ -199,11 +200,17 @@ export default function LeadForm({
           </div>
           <div>
             <label>Lead Person</label>
-            <input
+            <select
               value={form.lead_person}
               onChange={(e) => set("lead_person", e.target.value)}
-              placeholder="Aryan"
-            />
+            >
+              <option value="">Select…</option>
+              {LEAD_PERSON_OPTIONS.map((o) => (
+                <option key={o} value={o}>
+                  {o}
+                </option>
+              ))}
+            </select>
           </div>
           <div>
             <label>Lead Status</label>

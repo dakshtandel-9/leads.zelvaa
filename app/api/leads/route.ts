@@ -14,7 +14,10 @@ export function POST(req: Request) {
   return proxyToAzure(req, "/CreateLead", "POST");
 }
 
-// PUT /api/leads -> PUT /UpdateLead
+// PUT /api/leads -> POST /UpdateLead
+// NOTE: The API doc says PUT, but the deployed Azure Function only accepts POST
+// on /UpdateLead (PUT returns 404). We keep PUT as our own client-facing verb
+// and translate it to POST upstream.
 export function PUT(req: Request) {
-  return proxyToAzure(req, "/UpdateLead", "PUT");
+  return proxyToAzure(req, "/UpdateLead", "POST");
 }

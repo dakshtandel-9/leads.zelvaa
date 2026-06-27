@@ -1,7 +1,14 @@
 "use client";
 
 import type { Lead } from "@/lib/types";
-import { dash, fmtDate, priorityClass, statusClass } from "@/lib/format";
+import {
+  dash,
+  fmtDate,
+  priorityClass,
+  statusClass,
+  callStatusClass,
+  personClass,
+} from "@/lib/format";
 
 export default function LeadTable({
   leads,
@@ -26,11 +33,15 @@ export default function LeadTable({
             <th>Customer</th>
             <th>Business</th>
             <th>Phone</th>
-            <th>Email</th>
             <th>Priority</th>
             <th>Call Status</th>
+            <th>Call Message Detail</th>
             <th>Follow Up</th>
+            <th>Retry Count</th>
             <th>Lead Person</th>
+            <th>Invoice Status</th>
+            <th>Proposal Status</th>
+            <th>Proposal Pricing</th>
             <th>Lead Status</th>
             <th style={{ textAlign: "right" }}>Actions</th>
           </tr>
@@ -43,15 +54,31 @@ export default function LeadTable({
               <td>{dash(lead.customer_name)}</td>
               <td>{dash(lead.business_name)}</td>
               <td>{dash(lead.phone_number)}</td>
-              <td>{dash(lead.email)}</td>
               <td>
                 <span className={priorityClass(lead.lead_priority)}>
                   {dash(lead.lead_priority)}
                 </span>
               </td>
-              <td>{dash(lead.call_status)}</td>
+              <td>
+                <span className={callStatusClass(lead.call_status)}>
+                  {dash(lead.call_status)}
+                </span>
+              </td>
+              <td>{dash(lead.call_message_detail)}</td>
               <td>{fmtDate(lead.follow_up_date)}</td>
-              <td>{dash(lead.lead_person)}</td>
+              <td>{dash(lead.retry_count)}</td>
+              <td>
+                {lead.lead_person ? (
+                  <span className={personClass(lead.lead_person)}>
+                    {lead.lead_person}
+                  </span>
+                ) : (
+                  "—"
+                )}
+              </td>
+              <td>{dash(lead.invoice_status)}</td>
+              <td>{dash(lead.proposal_status)}</td>
+              <td>{dash(lead.praposal_pricing)}</td>
               <td>
                 <span className={statusClass(lead.lead_status)}>
                   {dash(lead.lead_status)}

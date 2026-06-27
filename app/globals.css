@@ -161,18 +161,58 @@ label {
 }
 
 /* ---- Filters ---- */
+.filters-card {
+  padding: 14px;
+  margin-bottom: 16px;
+}
+
 .filters {
   display: grid;
   grid-template-columns: 1.5fr repeat(3, 1fr) auto;
   gap: 10px;
-  padding: 14px;
-  margin-bottom: 16px;
 }
 
 @media (max-width: 900px) {
   .filters {
     grid-template-columns: 1fr 1fr;
   }
+}
+
+.filter-tabs {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.tab-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tab {
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.tab:hover {
+  background: #f1f4f9;
+}
+
+.tab-active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+.tab-active:hover {
+  background: var(--primary-hover);
 }
 
 /* ---- Table ---- */
@@ -226,6 +266,24 @@ tbody tr:hover {
 .status-Closed { background: #eef1f6; color: #5a6678; }
 .status-Lost { background: #fdecec; color: #c0392b; }
 .status-NotInterested { background: #f3eefe; color: #7c4dc4; }
+
+/* Call status badges */
+.call-Answered { background: #eafaf0; color: #1f8b4c; }
+.call-Unanswered { background: #fdecec; color: #c0392b; }
+.call-Busy { background: #fff5e6; color: #b9770e; }
+.call-NoResponse { background: #eef1f6; color: #5a6678; }
+.call-Interested { background: #e8f0fe; color: #2942ad; }
+.call-NotInterested { background: #f3eefe; color: #7c4dc4; }
+
+/* Lead person badges (hashed palette) */
+.person-0 { background: #e8f0fe; color: #2942ad; }
+.person-1 { background: #eafaf0; color: #1f8b4c; }
+.person-2 { background: #fff5e6; color: #b9770e; }
+.person-3 { background: #f3eefe; color: #7c4dc4; }
+.person-4 { background: #fdecec; color: #c0392b; }
+.person-5 { background: #e6f7f9; color: #0e7490; }
+.person-6 { background: #fdeef6; color: #be185d; }
+.person-7 { background: #eef2f0; color: #475569; }
 
 .row-actions {
   display: flex;
