@@ -14,6 +14,7 @@ export type LeadStatus =
   | "Converted"
   | "Closed"
   | "Lost"
+  | "On Hold"
   | "Not Interested";
 
 export type YesNo = "Yes" | "No";
@@ -82,6 +83,7 @@ export const LEAD_STATUS_OPTIONS: LeadStatus[] = [
   "Converted",
   "Closed",
   "Lost",
+  "On Hold",
   "Not Interested",
 ];
 

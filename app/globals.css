@@ -141,9 +141,9 @@ label {
 }
 
 .container {
-  max-width: 1280px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 24px;
+  padding: 24px 12px;
 }
 
 .page-head {
@@ -246,6 +246,69 @@ tbody tr:hover {
   background: #fafbfe;
 }
 
+/* Truncated Call Message Detail cell with click-to-open popover */
+.msg-cell {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 280px;
+  position: relative;
+}
+
+.msg-text {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.msg-info {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.msg-cell:hover .msg-info,
+.msg-cell.open .msg-info {
+  color: var(--primary);
+}
+
+/* Custom dark popover shown on click, anchored to the message cell */
+.msg-cell::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 12px;
+  width: 260px;
+  white-space: normal;
+  background: #1f2430;
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.45;
+  padding: 10px 12px;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  z-index: 20;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.12s ease;
+  pointer-events: none;
+}
+
+.msg-cell.open::after {
+  opacity: 1;
+  visibility: visible;
+}
+
 .badge {
   display: inline-block;
   padding: 2px 9px;
@@ -265,6 +328,7 @@ tbody tr:hover {
 .status-Converted { background: #eafaf0; color: #1f8b4c; }
 .status-Closed { background: #eef1f6; color: #5a6678; }
 .status-Lost { background: #fdecec; color: #c0392b; }
+.status-OnHold { background: #fff8e1; color: #8a6d0b; }
 .status-NotInterested { background: #f3eefe; color: #7c4dc4; }
 
 /* Call status badges */

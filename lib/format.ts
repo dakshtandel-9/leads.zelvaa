@@ -53,6 +53,7 @@ export function statusClass(s: string | null | undefined): string {
     "Converted",
     "Closed",
     "Lost",
+    "OnHold",
     "NotInterested",
   ];
   return known.includes(key) ? `badge status-${key}` : "badge badge-default";

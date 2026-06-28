@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import type { Lead } from "@/lib/types";
 import {
   dash,
@@ -19,6 +20,19 @@ export default function LeadTable({
   onView: (lead: Lead) => void;
   onEdit: (lead: Lead) => void;
 }) {
+  const [openMsgId, setOpenMsgId] = useState<number | null>(null);
+
+  // Close the message popover when clicking anywhere outside of it.
+  useEffect(() => {
+    if (openMsgId === null) return;
+    const close = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest(".msg-cell")) setOpenMsgId(null);
+    };
+    document.addEventListener("mousedown", close);
+    return () => document.removeEventListener("mousedown", close);
+  }, [openMsgId]);
+
   if (leads.length === 0) {
     return <div className="empty">No leads match your filters.</div>;
   }
@@ -64,7 +78,47 @@ export default function LeadTable({
                   {dash(lead.call_status)}
                 </span>
               </td>
-              <td>{dash(lead.call_message_detail)}</td>
+              <td>
+                {lead.call_message_detail ? (
+                  <div
+                    className={
+                      openMsgId === lead.inquiry_id
+                        ? "msg-cell open"
+                        : "msg-cell"
+                    }
+                    data-tip={lead.call_message_detail}
+                  >
+                    <span className="msg-text">{lead.call_message_detail}</span>
+                    <button
+                      type="button"
+                      className="msg-info"
+                      aria-label="Show full message"
+                      onClick={() =>
+                        setOpenMsgId((cur) =>
+                          cur === lead.inquiry_id ? null : lead.inquiry_id
+                        )
+                      }
+                    >
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="16" x2="12" y2="12" />
+                        <line x1="12" y1="8" x2="12.01" y2="8" />
+                      </svg>
+                    </button>
+                  </div>
+                ) : (
+                  "—"
+                )}
+              </td>
               <td>{fmtDate(lead.follow_up_date)}</td>
               <td>{dash(lead.retry_count)}</td>
               <td>
