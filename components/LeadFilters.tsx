@@ -36,7 +36,7 @@ export default function LeadFilters({
     onChange({ ...filters, [key]: value });
   }
 
-  const statusTabs = ["", ...LEAD_STATUS_OPTIONS];
+  const statusTabs = [...LEAD_STATUS_OPTIONS, ""];
 
   return (
     <div className="card filters-card">
